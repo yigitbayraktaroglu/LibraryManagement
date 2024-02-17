@@ -25,15 +25,23 @@ class Library:
 
     def remove_book(self):
         title_to_remove = input("Enter the title of the book to remove: ")
-        books = self.file.readlines()
         self.file.seek(0)
-        self.file.truncate()
+        books = self.file.read().splitlines()
+        self.file.truncate(0)
+        founded = True
 
         for book in books:
-            if title_to_remove not in book:
-                self.file.write(book)
+            if(title_to_remove not in book):
+                book_info = f"{book}\n"
+                self.file.write(book_info)
 
-        print(f"Book '{title_to_remove}' removed successfully.")
+            else:
+                print(f"Book '{title_to_remove}' removed successfully.")
+                founded=False
+
+        if(founded) :
+            print(f"Book '{title_to_remove}' not found")
+
 
 # Create an object named "lib" with the Library class
 lib = Library()
